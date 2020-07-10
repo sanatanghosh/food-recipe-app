@@ -51,6 +51,9 @@ const App = () => {
 
   return (
     <div className="App">
+        <div className='header'>
+          <h2>RECIPE SEARCH APPLICATION</h2>
+        </div>
       <form className='search-form' onSubmit={getSearch} >
         <input className='search-bar' type='text' value={search} onChange={updateSearch} />
         <button className='search-button'>
