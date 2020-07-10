@@ -1,25 +1,33 @@
-import React , { useEffect, useState}from 'react';
+import React, { useEffect, useState } from 'react';
+
+import Recipe from './components/recipe.component';
 
 import './App.css';
 
 
 const App = () => {
 
-    const API_ID = '9cb3bd71';
-    const API_KEY = 'f5c0a977437018245c474c0d10b3a773';
 
-  
-    const [recipes, setRecipes] = useState([]);
+
+  const API_ID = '9cb3bd71';
+  const API_KEY = 'f5c0a977437018245c474c0d10b3a773';
+
+  //declaring state
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('chicken')
+
+
 
   useEffect( () => {
+    getRecipes() 
+  }, [query]);
 
-    getRecipes();
-  }, []);
 
 
   const getRecipes = async () => {
 
-    const response = await fetch(`https://api.edamam.com/search?q=chicken&app_id=${API_ID}&app_key=${API_KEY}`);
+    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${API_ID}&app_key=${API_KEY}`);
     const data = await response.json();
 
     // console.log(data.hits);
@@ -28,14 +36,37 @@ const App = () => {
   }
 
 
+  const updateSearch = e => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
+  const getSearch = e => {
+    e.preventDefault();
+    setQuery(search);
+    setSearch('');
+  }
+
+
   return (
     <div className="App">
-      <form className='searc-form'>
-        <input className='search-bar' type='text' />
+      <form className='search-form' onSubmit={getSearch} >
+        <input className='search-bar' type='text' value={search} onChange={updateSearch} />
         <button className='search-button'>
           Search
         </button>
       </form>
+      <div className='recipes'>
+        {recipes.map(item => (
+          <Recipe
+            key={item.recipe.label}
+            title={item.recipe.label}
+            calories={item.recipe.calories}
+            image={item.recipe.image}
+            ingredients={item.recipe.ingredients}
+          />
+        ))}
+      </div>
     </div>
   );
 };
