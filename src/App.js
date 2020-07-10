@@ -15,7 +15,7 @@ const App = () => {
   //declaring state
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
-  const [query, setQuery] = useState('chicken')
+  const [query, setQuery] = useState('burger')
 
 
 
@@ -25,12 +25,13 @@ const App = () => {
 
 
 
+
   const getRecipes = async () => {
 
     const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${API_ID}&app_key=${API_KEY}`);
     const data = await response.json();
 
-    // console.log(data.hits);
+    console.log(data.hits);
     setRecipes(data.hits)
 
   }
@@ -53,7 +54,7 @@ const App = () => {
       <form className='search-form' onSubmit={getSearch} >
         <input className='search-bar' type='text' value={search} onChange={updateSearch} />
         <button className='search-button'>
-          Search
+          <b>SEARCH</b>
         </button>
       </form>
       <div className='recipes'>
