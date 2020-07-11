@@ -55,7 +55,7 @@ const App = () => {
           <h2>RECIPE SEARCH APPLICATION</h2>
         </div>
       <form className='search-form' onSubmit={getSearch} >
-        <input className='search-bar' type='text' value={search} onChange={updateSearch} />
+        <input className='search-bar' type='text' value={search} onChange={updateSearch} placeholder="Seacrh any food dish or recipe" />
         <button className='search-button'>
           <b>SEARCH</b>
         </button>
